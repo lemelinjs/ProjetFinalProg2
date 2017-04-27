@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="module_de_paie_contextStoreContainer" CdmEntityContainer="module_de_paie_entity">
+    <EntitySetMapping Name="compagnies">
+      <EntityTypeMapping TypeName="module_de_paie_context.compagnies">
+        <MappingFragment StoreEntitySet="compagnies">
+          <ScalarProperty Name="NE" ColumnName="NE" />
+          <ScalarProperty Name="NEQ" ColumnName="NEQ" />
+          <ScalarProperty Name="frequence_paie_j" ColumnName="frequence_paie_j" />
+          <ScalarProperty Name="premier_jour_paie" ColumnName="premier_jour_paie" />
+          <ScalarProperty Name="code_postal" ColumnName="code_postal" />
+          <ScalarProperty Name="ville" ColumnName="ville" />
+          <ScalarProperty Name="no_rue" ColumnName="no_rue" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="compagnies_employes">
+      <EntityTypeMapping TypeName="module_de_paie_context.compagnies_employes">
+        <MappingFragment StoreEntitySet="compagnies_employes">
+          <ScalarProperty Name="employe_id" ColumnName="employe_id" />
+          <ScalarProperty Name="compagnie_id" ColumnName="compagnie_id" />
+          <ScalarProperty Name="premier_jour_emploi" ColumnName="premier_jour_emploi" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="employes">
+      <EntityTypeMapping TypeName="module_de_paie_context.employes">
+        <MappingFragment StoreEntitySet="employes">
+          <ScalarProperty Name="paie_vacance" ColumnName="paie_vacance" />
+          <ScalarProperty Name="pourcentage_vacance" ColumnName="pourcentage_vacance" />
+          <ScalarProperty Name="taux_horaire" ColumnName="taux_horaire" />
+          <ScalarProperty Name="telephone" ColumnName="telephone" />
+          <ScalarProperty Name="code_postal" ColumnName="code_postal" />
+          <ScalarProperty Name="ville" ColumnName="ville" />
+          <ScalarProperty Name="no_rue" ColumnName="no_rue" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="admin" ColumnName="admin" />
+          <ScalarProperty Name="mot_de_passe" ColumnName="mot_de_passe" />
+          <ScalarProperty Name="pseudonyme" ColumnName="pseudonyme" />
+          <ScalarProperty Name="note" ColumnName="note" />
+          <ScalarProperty Name="actif" ColumnName="actif" />
+          <ScalarProperty Name="NAS" ColumnName="NAS" />
+          <ScalarProperty Name="date_naissance" ColumnName="date_naissance" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="prenom" ColumnName="prenom" />
+          <ScalarProperty Name="numero_employe" ColumnName="numero_employe" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="feries">
+      <EntityTypeMapping TypeName="module_de_paie_context.feries">
+        <MappingFragment StoreEntitySet="feries">
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="jours_travailles">
+      <EntityTypeMapping TypeName="module_de_paie_context.jours_travailles">
+        <MappingFragment StoreEntitySet="jours_travailles">
+          <ScalarProperty Name="compagnie_employe_id" ColumnName="compagnie_employe_id" />
+          <ScalarProperty Name="employe_id" ColumnName="employe_id" />
+          <ScalarProperty Name="paie_id" ColumnName="paie_id" />
+          <ScalarProperty Name="heures" ColumnName="heures" />
+          <ScalarProperty Name="date_travail" ColumnName="date_travail" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="paies">
+      <EntityTypeMapping TypeName="module_de_paie_context.paies">
+        <MappingFragment StoreEntitySet="paies">
+          <ScalarProperty Name="employe_id" ColumnName="employe_id" />
+          <ScalarProperty Name="compagnie_employe_id" ColumnName="compagnie_employe_id" />
+          <ScalarProperty Name="heures_regulieres" ColumnName="heures_regulieres" />
+          <ScalarProperty Name="heures_surtemps" ColumnName="heures_surtemps" />
+          <ScalarProperty Name="date_paie" ColumnName="date_paie" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="paies_feries">
+      <EntityTypeMapping TypeName="module_de_paie_context.paies_feries">
+        <MappingFragment StoreEntitySet="paies_feries">
+          <ScalarProperty Name="ferie_id" ColumnName="ferie_id" />
+          <ScalarProperty Name="paie_id" ColumnName="paie_id" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="paies_retenues">
+      <EntityTypeMapping TypeName="module_de_paie_context.paies_retenues">
+        <MappingFragment StoreEntitySet="paies_retenues">
+          <ScalarProperty Name="type_retenue_id" ColumnName="type_retenue_id" />
+          <ScalarProperty Name="paie_id" ColumnName="paie_id" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="types_retenues">
+      <EntityTypeMapping TypeName="module_de_paie_context.types_retenues">
+        <MappingFragment StoreEntitySet="types_retenues">
+          <ScalarProperty Name="pourcentage" ColumnName="pourcentage" />
+          <ScalarProperty Name="part_employeur" ColumnName="part_employeur" />
+          <ScalarProperty Name="plafond" ColumnName="plafond" />
+          <ScalarProperty Name="minimum" ColumnName="minimum" />
+          <ScalarProperty Name="en_vigueur_fin" ColumnName="en_vigueur_fin" />
+          <ScalarProperty Name="en_vigueur_debut" ColumnName="en_vigueur_debut" />
+          <ScalarProperty Name="nom_retenue" ColumnName="nom_retenue" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="types_retenues_employes">
+      <EntityTypeMapping TypeName="module_de_paie_context.types_retenues_employes">
+        <MappingFragment StoreEntitySet="types_retenues_employes">
+          <ScalarProperty Name="employe_id" ColumnName="employe_id" />
+          <ScalarProperty Name="types_retenues_id" ColumnName="types_retenues_id" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vacances">
+      <EntityTypeMapping TypeName="module_de_paie_context.vacances">
+        <MappingFragment StoreEntitySet="vacances">
+          <ScalarProperty Name="employe_id" ColumnName="employe_id" />
+          <ScalarProperty Name="paie_id" ColumnName="paie_id" />
+          <ScalarProperty Name="nombre_heures" ColumnName="nombre_heures" />
+          <ScalarProperty Name="date_vacance" ColumnName="date_vacance" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

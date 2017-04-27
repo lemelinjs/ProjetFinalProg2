@@ -1,0 +1,889 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="module_de_paie_context.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="compagnies">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nom" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="no_rue" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="ville" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="code_postal" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="premier_jour_paie" Type="date" Nullable="false" />
+          <Property Name="frequence_paie_j" Type="int" Nullable="false" />
+          <Property Name="NEQ" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="NE" Type="varchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <EntityType Name="compagnies_employes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="premier_jour_emploi" Type="date" Nullable="false" />
+          <Property Name="compagnie_id" Type="int" Nullable="false" />
+          <Property Name="employe_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="employes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="numero_employe" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="prenom" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="nom" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="date_naissance" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="NAS" Type="int" Nullable="false" />
+          <Property Name="actif" Type="tinyint" Nullable="false" />
+          <Property Name="note" Type="longtext" Nullable="false" />
+          <Property Name="pseudonyme" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="mot_de_passe" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="admin" Type="tinyint" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="no_rue" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="ville" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="code_postal" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="telephone" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="taux_horaire" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="pourcentage_vacance" Type="int" Nullable="false" />
+          <Property Name="paie_vacance" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="feries">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nom" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityType Name="jours_travailles">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="date_travail" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="heures" Type="decimal" Precision="4" Scale="2" Nullable="false" />
+          <Property Name="paie_id" Type="int" Nullable="false" />
+          <Property Name="employe_id" Type="int" Nullable="false" />
+          <Property Name="compagnie_employe_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="paies">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="date_paie" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="heures_surtemps" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="heures_regulieres" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="compagnie_employe_id" Type="int" Nullable="false" />
+          <Property Name="employe_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="paies_feries">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="paie_id" Type="int" Nullable="false" />
+          <Property Name="ferie_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="paies_retenues">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="paie_id" Type="int" Nullable="false" />
+          <Property Name="type_retenue_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="types_retenues">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nom_retenue" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="en_vigueur_debut" Type="date" Nullable="false" />
+          <Property Name="en_vigueur_fin" Type="date" Nullable="false" />
+          <Property Name="minimum" Type="decimal" Precision="8" Scale="2" Nullable="false" />
+          <Property Name="plafond" Type="decimal" Precision="8" Scale="2" Nullable="false" />
+          <Property Name="part_employeur" Type="tinyint" Nullable="false" />
+          <Property Name="pourcentage" Type="decimal" Precision="4" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="types_retenues_employes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="types_retenues_id" Type="int" Nullable="false" />
+          <Property Name="employe_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="vacances">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="date_vacance" Type="date" Nullable="false" />
+          <Property Name="nombre_heures" Type="decimal" Precision="4" Scale="2" Nullable="false" />
+          <Property Name="paie_id" Type="int" Nullable="false" />
+          <Property Name="employe_id" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="compagnie_employe_id">
+          <End Role="compagnies_employes" Type="Self.compagnies_employes" Multiplicity="1" />
+          <End Role="jours_travailles" Type="Self.jours_travailles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="compagnies_employes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="jours_travailles">
+              <PropertyRef Name="compagnie_employe_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="compagnie_id">
+          <End Role="compagnies" Type="Self.compagnies" Multiplicity="1" />
+          <End Role="compagnies_employes" Type="Self.compagnies_employes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="compagnies">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="compagnies_employes">
+              <PropertyRef Name="compagnie_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="employe_id">
+          <End Role="employes" Type="Self.employes" Multiplicity="1" />
+          <End Role="compagnies_employes" Type="Self.compagnies_employes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="compagnies_employes">
+              <PropertyRef Name="employe_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="employe_id(1)">
+          <End Role="employes" Type="Self.employes" Multiplicity="1" />
+          <End Role="jours_travailles" Type="Self.jours_travailles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="jours_travailles">
+              <PropertyRef Name="employe_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="employe_id(2)">
+          <End Role="employes" Type="Self.employes" Multiplicity="1" />
+          <End Role="types_retenues_employes" Type="Self.types_retenues_employes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="types_retenues_employes">
+              <PropertyRef Name="employe_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="employe_id(3)">
+          <End Role="employes" Type="Self.employes" Multiplicity="1" />
+          <End Role="vacances" Type="Self.vacances" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="vacances">
+              <PropertyRef Name="employe_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ferie_id">
+          <End Role="feries" Type="Self.feries" Multiplicity="1" />
+          <End Role="paies_feries" Type="Self.paies_feries" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="feries">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="paies_feries">
+              <PropertyRef Name="ferie_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="paie_id">
+          <End Role="paies" Type="Self.paies" Multiplicity="1" />
+          <End Role="jours_travailles" Type="Self.jours_travailles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="paies">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="jours_travailles">
+              <PropertyRef Name="paie_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="paie_id(1)">
+          <End Role="paies" Type="Self.paies" Multiplicity="1" />
+          <End Role="paies_feries" Type="Self.paies_feries" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="paies">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="paies_feries">
+              <PropertyRef Name="paie_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="paie_id(2)">
+          <End Role="paies" Type="Self.paies" Multiplicity="1" />
+          <End Role="paies_retenues" Type="Self.paies_retenues" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="paies">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="paies_retenues">
+              <PropertyRef Name="paie_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="paie_id(3)">
+          <End Role="paies" Type="Self.paies" Multiplicity="1" />
+          <End Role="vacances" Type="Self.vacances" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="paies">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="vacances">
+              <PropertyRef Name="paie_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="type_retenue_id">
+          <End Role="types_retenues" Type="Self.types_retenues" Multiplicity="1" />
+          <End Role="paies_retenues" Type="Self.paies_retenues" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="types_retenues">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="paies_retenues">
+              <PropertyRef Name="type_retenue_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="type_retenue_id(1)">
+          <End Role="types_retenues" Type="Self.types_retenues" Multiplicity="1" />
+          <End Role="types_retenues_employes" Type="Self.types_retenues_employes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="types_retenues">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="types_retenues_employes">
+              <PropertyRef Name="types_retenues_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="module_de_paie_contextStoreContainer">
+          <EntitySet Name="compagnies" EntityType="Self.compagnies" Schema="module_de_paie" store:Type="Tables" />
+          <EntitySet Name="compagnies_employes" EntityType="Self.compagnies_employes" Schema="module_de_paie" store:Type="Tables" />
+          <EntitySet Name="employes" EntityType="Self.employes" Schema="module_de_paie" store:Type="Tables" />
+          <EntitySet Name="feries" EntityType="Self.feries" Schema="module_de_paie" store:Type="Tables" />
+          <EntitySet Name="jours_travailles" EntityType="Self.jours_travailles" Schema="module_de_paie" store:Type="Tables" />
+          <EntitySet Name="paies" EntityType="Self.paies" Schema="module_de_paie" store:Type="Tables" />
+          <EntitySet Name="paies_feries" EntityType="Self.paies_feries" Schema="module_de_paie" store:Type="Tables" />
+          <EntitySet Name="paies_retenues" EntityType="Self.paies_retenues" Schema="module_de_paie" store:Type="Tables" />
+          <EntitySet Name="types_retenues" EntityType="Self.types_retenues" Schema="module_de_paie" store:Type="Tables" />
+          <EntitySet Name="types_retenues_employes" EntityType="Self.types_retenues_employes" Schema="module_de_paie" store:Type="Tables" />
+          <EntitySet Name="vacances" EntityType="Self.vacances" Schema="module_de_paie" store:Type="Tables" />
+          <AssociationSet Name="compagnie_employe_id" Association="Self.compagnie_employe_id">
+            <End Role="compagnies_employes" EntitySet="compagnies_employes" />
+            <End Role="jours_travailles" EntitySet="jours_travailles" />
+          </AssociationSet>
+          <AssociationSet Name="compagnie_id" Association="Self.compagnie_id">
+            <End Role="compagnies" EntitySet="compagnies" />
+            <End Role="compagnies_employes" EntitySet="compagnies_employes" />
+          </AssociationSet>
+          <AssociationSet Name="employe_id" Association="Self.employe_id">
+            <End Role="employes" EntitySet="employes" />
+            <End Role="compagnies_employes" EntitySet="compagnies_employes" />
+          </AssociationSet>
+          <AssociationSet Name="employe_id(1)" Association="Self.employe_id(1)">
+            <End Role="employes" EntitySet="employes" />
+            <End Role="jours_travailles" EntitySet="jours_travailles" />
+          </AssociationSet>
+          <AssociationSet Name="employe_id(2)" Association="Self.employe_id(2)">
+            <End Role="employes" EntitySet="employes" />
+            <End Role="types_retenues_employes" EntitySet="types_retenues_employes" />
+          </AssociationSet>
+          <AssociationSet Name="employe_id(3)" Association="Self.employe_id(3)">
+            <End Role="employes" EntitySet="employes" />
+            <End Role="vacances" EntitySet="vacances" />
+          </AssociationSet>
+          <AssociationSet Name="ferie_id" Association="Self.ferie_id">
+            <End Role="feries" EntitySet="feries" />
+            <End Role="paies_feries" EntitySet="paies_feries" />
+          </AssociationSet>
+          <AssociationSet Name="paie_id" Association="Self.paie_id">
+            <End Role="paies" EntitySet="paies" />
+            <End Role="jours_travailles" EntitySet="jours_travailles" />
+          </AssociationSet>
+          <AssociationSet Name="paie_id(1)" Association="Self.paie_id(1)">
+            <End Role="paies" EntitySet="paies" />
+            <End Role="paies_feries" EntitySet="paies_feries" />
+          </AssociationSet>
+          <AssociationSet Name="paie_id(2)" Association="Self.paie_id(2)">
+            <End Role="paies" EntitySet="paies" />
+            <End Role="paies_retenues" EntitySet="paies_retenues" />
+          </AssociationSet>
+          <AssociationSet Name="paie_id(3)" Association="Self.paie_id(3)">
+            <End Role="paies" EntitySet="paies" />
+            <End Role="vacances" EntitySet="vacances" />
+          </AssociationSet>
+          <AssociationSet Name="type_retenue_id" Association="Self.type_retenue_id">
+            <End Role="types_retenues" EntitySet="types_retenues" />
+            <End Role="paies_retenues" EntitySet="paies_retenues" />
+          </AssociationSet>
+          <AssociationSet Name="type_retenue_id(1)" Association="Self.type_retenue_id(1)">
+            <End Role="types_retenues" EntitySet="types_retenues" />
+            <End Role="types_retenues_employes" EntitySet="types_retenues_employes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="module_de_paie_context" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="module_de_paie_entity" annotation:LazyLoadingEnabled="true" >
+          <EntitySet Name="compagnies" EntityType="module_de_paie_context.compagnies" />
+          <EntitySet Name="compagnies_employes" EntityType="module_de_paie_context.compagnies_employes" />
+          <EntitySet Name="employes" EntityType="module_de_paie_context.employes" />
+          <EntitySet Name="feries" EntityType="module_de_paie_context.feries" />
+          <EntitySet Name="jours_travailles" EntityType="module_de_paie_context.jours_travailles" />
+          <EntitySet Name="paies" EntityType="module_de_paie_context.paies" />
+          <EntitySet Name="paies_feries" EntityType="module_de_paie_context.paies_feries" />
+          <EntitySet Name="paies_retenues" EntityType="module_de_paie_context.paies_retenues" />
+          <EntitySet Name="types_retenues" EntityType="module_de_paie_context.types_retenues" />
+          <EntitySet Name="types_retenues_employes" EntityType="module_de_paie_context.types_retenues_employes" />
+          <EntitySet Name="vacances" EntityType="module_de_paie_context.vacances" />
+          <AssociationSet Name="compagnie_id" Association="module_de_paie_context.compagnie_id">
+            <End Role="compagnies" EntitySet="compagnies" />
+            <End Role="compagnies_employes" EntitySet="compagnies_employes" />
+          </AssociationSet>
+          <AssociationSet Name="compagnie_employe_id" Association="module_de_paie_context.compagnie_employe_id">
+            <End Role="compagnies_employes" EntitySet="compagnies_employes" />
+            <End Role="jours_travailles" EntitySet="jours_travailles" />
+          </AssociationSet>
+          <AssociationSet Name="employe_id" Association="module_de_paie_context.employe_id">
+            <End Role="employes" EntitySet="employes" />
+            <End Role="compagnies_employes" EntitySet="compagnies_employes" />
+          </AssociationSet>
+          <AssociationSet Name="employe_id_1_" Association="module_de_paie_context.employe_id_1_">
+            <End Role="employes" EntitySet="employes" />
+            <End Role="jours_travailles" EntitySet="jours_travailles" />
+          </AssociationSet>
+          <AssociationSet Name="employe_id_2_" Association="module_de_paie_context.employe_id_2_">
+            <End Role="employes" EntitySet="employes" />
+            <End Role="types_retenues_employes" EntitySet="types_retenues_employes" />
+          </AssociationSet>
+          <AssociationSet Name="employe_id_3_" Association="module_de_paie_context.employe_id_3_">
+            <End Role="employes" EntitySet="employes" />
+            <End Role="vacances" EntitySet="vacances" />
+          </AssociationSet>
+          <AssociationSet Name="ferie_id" Association="module_de_paie_context.ferie_id">
+            <End Role="feries" EntitySet="feries" />
+            <End Role="paies_feries" EntitySet="paies_feries" />
+          </AssociationSet>
+          <AssociationSet Name="paie_id" Association="module_de_paie_context.paie_id">
+            <End Role="paies" EntitySet="paies" />
+            <End Role="jours_travailles" EntitySet="jours_travailles" />
+          </AssociationSet>
+          <AssociationSet Name="paie_id_1_" Association="module_de_paie_context.paie_id_1_">
+            <End Role="paies" EntitySet="paies" />
+            <End Role="paies_feries" EntitySet="paies_feries" />
+          </AssociationSet>
+          <AssociationSet Name="paie_id_2_" Association="module_de_paie_context.paie_id_2_">
+            <End Role="paies" EntitySet="paies" />
+            <End Role="paies_retenues" EntitySet="paies_retenues" />
+          </AssociationSet>
+          <AssociationSet Name="paie_id_3_" Association="module_de_paie_context.paie_id_3_">
+            <End Role="paies" EntitySet="paies" />
+            <End Role="vacances" EntitySet="vacances" />
+          </AssociationSet>
+          <AssociationSet Name="type_retenue_id" Association="module_de_paie_context.type_retenue_id">
+            <End Role="types_retenues" EntitySet="types_retenues" />
+            <End Role="paies_retenues" EntitySet="paies_retenues" />
+          </AssociationSet>
+          <AssociationSet Name="type_retenue_id_1_" Association="module_de_paie_context.type_retenue_id_1_">
+            <End Role="types_retenues" EntitySet="types_retenues" />
+            <End Role="types_retenues_employes" EntitySet="types_retenues_employes" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="compagnies">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nom" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="no_rue" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="ville" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="code_postal" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="premier_jour_paie" Type="DateTime" Nullable="false" />
+          <Property Name="frequence_paie_j" Type="Int32" Nullable="false" />
+          <Property Name="NEQ" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="NE" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="compagnies_employes" Relationship="module_de_paie_context.compagnie_id" FromRole="compagnies" ToRole="compagnies_employes" />
+        </EntityType>
+        <EntityType Name="compagnies_employes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="premier_jour_emploi" Type="DateTime" Nullable="false" />
+          <Property Name="compagnie_id" Type="Int32" Nullable="false" />
+          <Property Name="employe_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="compagnies" Relationship="module_de_paie_context.compagnie_id" FromRole="compagnies_employes" ToRole="compagnies" />
+          <NavigationProperty Name="jours_travailles" Relationship="module_de_paie_context.compagnie_employe_id" FromRole="compagnies_employes" ToRole="jours_travailles" />
+          <NavigationProperty Name="employes" Relationship="module_de_paie_context.employe_id" FromRole="compagnies_employes" ToRole="employes" />
+        </EntityType>
+        <EntityType Name="employes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="numero_employe" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="prenom" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="nom" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="date_naissance" Type="DateTime" Nullable="false" />
+          <Property Name="NAS" Type="Int32" Nullable="false" />
+          <Property Name="actif" Type="SByte" Nullable="false" />
+          <Property Name="note" Type="String" Nullable="false" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="pseudonyme" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="mot_de_passe" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="admin" Type="SByte" Nullable="false" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="no_rue" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="ville" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="code_postal" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="telephone" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="taux_horaire" Type="Decimal" Nullable="false" />
+          <Property Name="pourcentage_vacance" Type="Int32" Nullable="false" />
+          <Property Name="paie_vacance" Type="SByte" Nullable="false" />
+          <NavigationProperty Name="compagnies_employes" Relationship="module_de_paie_context.employe_id" FromRole="employes" ToRole="compagnies_employes" />
+          <NavigationProperty Name="jours_travailles" Relationship="module_de_paie_context.employe_id_1_" FromRole="employes" ToRole="jours_travailles" />
+          <NavigationProperty Name="types_retenues_employes" Relationship="module_de_paie_context.employe_id_2_" FromRole="employes" ToRole="types_retenues_employes" />
+          <NavigationProperty Name="vacances" Relationship="module_de_paie_context.employe_id_3_" FromRole="employes" ToRole="vacances" />
+        </EntityType>
+        <EntityType Name="feries">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nom" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="paies_feries" Relationship="module_de_paie_context.ferie_id" FromRole="feries" ToRole="paies_feries" />
+        </EntityType>
+        <EntityType Name="jours_travailles">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="date_travail" Type="DateTime" Nullable="false" />
+          <Property Name="heures" Type="Decimal" Nullable="false" />
+          <Property Name="paie_id" Type="Int32" Nullable="false" />
+          <Property Name="employe_id" Type="Int32" Nullable="false" />
+          <Property Name="compagnie_employe_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="compagnies_employes" Relationship="module_de_paie_context.compagnie_employe_id" FromRole="jours_travailles" ToRole="compagnies_employes" />
+          <NavigationProperty Name="employes" Relationship="module_de_paie_context.employe_id_1_" FromRole="jours_travailles" ToRole="employes" />
+          <NavigationProperty Name="paies" Relationship="module_de_paie_context.paie_id" FromRole="jours_travailles" ToRole="paies" />
+        </EntityType>
+        <EntityType Name="paies">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="date_paie" Type="DateTime" Nullable="false" />
+          <Property Name="heures_surtemps" Type="Decimal" Nullable="false" />
+          <Property Name="heures_regulieres" Type="Decimal" Nullable="false" />
+          <Property Name="compagnie_employe_id" Type="Int32" Nullable="false" />
+          <Property Name="employe_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="jours_travailles" Relationship="module_de_paie_context.paie_id" FromRole="paies" ToRole="jours_travailles" />
+          <NavigationProperty Name="paies_feries" Relationship="module_de_paie_context.paie_id_1_" FromRole="paies" ToRole="paies_feries" />
+          <NavigationProperty Name="paies_retenues" Relationship="module_de_paie_context.paie_id_2_" FromRole="paies" ToRole="paies_retenues" />
+          <NavigationProperty Name="vacances" Relationship="module_de_paie_context.paie_id_3_" FromRole="paies" ToRole="vacances" />
+        </EntityType>
+        <EntityType Name="paies_feries">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="paie_id" Type="Int32" Nullable="false" />
+          <Property Name="ferie_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="feries" Relationship="module_de_paie_context.ferie_id" FromRole="paies_feries" ToRole="feries" />
+          <NavigationProperty Name="paies" Relationship="module_de_paie_context.paie_id_1_" FromRole="paies_feries" ToRole="paies" />
+        </EntityType>
+        <EntityType Name="paies_retenues">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="paie_id" Type="Int32" Nullable="false" />
+          <Property Name="type_retenue_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="paies" Relationship="module_de_paie_context.paie_id_2_" FromRole="paies_retenues" ToRole="paies" />
+          <NavigationProperty Name="types_retenues" Relationship="module_de_paie_context.type_retenue_id" FromRole="paies_retenues" ToRole="types_retenues" />
+        </EntityType>
+        <EntityType Name="types_retenues">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nom_retenue" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="en_vigueur_debut" Type="DateTime" Nullable="false" />
+          <Property Name="en_vigueur_fin" Type="DateTime" Nullable="false" />
+          <Property Name="minimum" Type="Decimal" Nullable="false" />
+          <Property Name="plafond" Type="Decimal" Nullable="false" />
+          <Property Name="part_employeur" Type="SByte" Nullable="false" />
+          <Property Name="pourcentage" Type="Decimal" Nullable="false" />
+          <NavigationProperty Name="paies_retenues" Relationship="module_de_paie_context.type_retenue_id" FromRole="types_retenues" ToRole="paies_retenues" />
+          <NavigationProperty Name="types_retenues_employes" Relationship="module_de_paie_context.type_retenue_id_1_" FromRole="types_retenues" ToRole="types_retenues_employes" />
+        </EntityType>
+        <EntityType Name="types_retenues_employes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="types_retenues_id" Type="Int32" Nullable="false" />
+          <Property Name="employe_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="employes" Relationship="module_de_paie_context.employe_id_2_" FromRole="types_retenues_employes" ToRole="employes" />
+          <NavigationProperty Name="types_retenues" Relationship="module_de_paie_context.type_retenue_id_1_" FromRole="types_retenues_employes" ToRole="types_retenues" />
+        </EntityType>
+        <EntityType Name="vacances">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="date_vacance" Type="DateTime" Nullable="false" />
+          <Property Name="nombre_heures" Type="Decimal" Nullable="false" />
+          <Property Name="paie_id" Type="Int32" Nullable="false" />
+          <Property Name="employe_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="employes" Relationship="module_de_paie_context.employe_id_3_" FromRole="vacances" ToRole="employes" />
+          <NavigationProperty Name="paies" Relationship="module_de_paie_context.paie_id_3_" FromRole="vacances" ToRole="paies" />
+        </EntityType>
+        <Association Name="compagnie_id">
+          <End Type="module_de_paie_context.compagnies" Role="compagnies" Multiplicity="1" />
+          <End Type="module_de_paie_context.compagnies_employes" Role="compagnies_employes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="compagnies">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="compagnies_employes">
+              <PropertyRef Name="compagnie_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="compagnie_employe_id">
+          <End Type="module_de_paie_context.compagnies_employes" Role="compagnies_employes" Multiplicity="1" />
+          <End Type="module_de_paie_context.jours_travailles" Role="jours_travailles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="compagnies_employes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="jours_travailles">
+              <PropertyRef Name="compagnie_employe_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="employe_id">
+          <End Type="module_de_paie_context.employes" Role="employes" Multiplicity="1" />
+          <End Type="module_de_paie_context.compagnies_employes" Role="compagnies_employes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="compagnies_employes">
+              <PropertyRef Name="employe_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="employe_id_1_">
+          <End Type="module_de_paie_context.employes" Role="employes" Multiplicity="1" />
+          <End Type="module_de_paie_context.jours_travailles" Role="jours_travailles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="jours_travailles">
+              <PropertyRef Name="employe_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="employe_id_2_">
+          <End Type="module_de_paie_context.employes" Role="employes" Multiplicity="1" />
+          <End Type="module_de_paie_context.types_retenues_employes" Role="types_retenues_employes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="types_retenues_employes">
+              <PropertyRef Name="employe_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="employe_id_3_">
+          <End Type="module_de_paie_context.employes" Role="employes" Multiplicity="1" />
+          <End Type="module_de_paie_context.vacances" Role="vacances" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="vacances">
+              <PropertyRef Name="employe_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ferie_id">
+          <End Type="module_de_paie_context.feries" Role="feries" Multiplicity="1" />
+          <End Type="module_de_paie_context.paies_feries" Role="paies_feries" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="feries">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="paies_feries">
+              <PropertyRef Name="ferie_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="paie_id">
+          <End Type="module_de_paie_context.paies" Role="paies" Multiplicity="1" />
+          <End Type="module_de_paie_context.jours_travailles" Role="jours_travailles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="paies">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="jours_travailles">
+              <PropertyRef Name="paie_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="paie_id_1_">
+          <End Type="module_de_paie_context.paies" Role="paies" Multiplicity="1" />
+          <End Type="module_de_paie_context.paies_feries" Role="paies_feries" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="paies">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="paies_feries">
+              <PropertyRef Name="paie_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="paie_id_2_">
+          <End Type="module_de_paie_context.paies" Role="paies" Multiplicity="1" />
+          <End Type="module_de_paie_context.paies_retenues" Role="paies_retenues" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="paies">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="paies_retenues">
+              <PropertyRef Name="paie_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="paie_id_3_">
+          <End Type="module_de_paie_context.paies" Role="paies" Multiplicity="1" />
+          <End Type="module_de_paie_context.vacances" Role="vacances" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="paies">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="vacances">
+              <PropertyRef Name="paie_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="type_retenue_id">
+          <End Type="module_de_paie_context.types_retenues" Role="types_retenues" Multiplicity="1" />
+          <End Type="module_de_paie_context.paies_retenues" Role="paies_retenues" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="types_retenues">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="paies_retenues">
+              <PropertyRef Name="type_retenue_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="type_retenue_id_1_">
+          <End Type="module_de_paie_context.types_retenues" Role="types_retenues" Multiplicity="1" />
+          <End Type="module_de_paie_context.types_retenues_employes" Role="types_retenues_employes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="types_retenues">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="types_retenues_employes">
+              <PropertyRef Name="types_retenues_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="module_de_paie_contextStoreContainer" CdmEntityContainer="module_de_paie_entity" >
+          <EntitySetMapping Name="compagnies">
+            <EntityTypeMapping TypeName="module_de_paie_context.compagnies">
+              <MappingFragment StoreEntitySet="compagnies">
+                <ScalarProperty Name="NE" ColumnName="NE" />
+                <ScalarProperty Name="NEQ" ColumnName="NEQ" />
+                <ScalarProperty Name="frequence_paie_j" ColumnName="frequence_paie_j" />
+                <ScalarProperty Name="premier_jour_paie" ColumnName="premier_jour_paie" />
+                <ScalarProperty Name="code_postal" ColumnName="code_postal" />
+                <ScalarProperty Name="ville" ColumnName="ville" />
+                <ScalarProperty Name="no_rue" ColumnName="no_rue" />
+                <ScalarProperty Name="nom" ColumnName="nom" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="compagnies_employes">
+            <EntityTypeMapping TypeName="module_de_paie_context.compagnies_employes">
+              <MappingFragment StoreEntitySet="compagnies_employes">
+                <ScalarProperty Name="employe_id" ColumnName="employe_id" />
+                <ScalarProperty Name="compagnie_id" ColumnName="compagnie_id" />
+                <ScalarProperty Name="premier_jour_emploi" ColumnName="premier_jour_emploi" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="employes">
+            <EntityTypeMapping TypeName="module_de_paie_context.employes">
+              <MappingFragment StoreEntitySet="employes">
+                <ScalarProperty Name="paie_vacance" ColumnName="paie_vacance" />
+                <ScalarProperty Name="pourcentage_vacance" ColumnName="pourcentage_vacance" />
+                <ScalarProperty Name="taux_horaire" ColumnName="taux_horaire" />
+                <ScalarProperty Name="telephone" ColumnName="telephone" />
+                <ScalarProperty Name="code_postal" ColumnName="code_postal" />
+                <ScalarProperty Name="ville" ColumnName="ville" />
+                <ScalarProperty Name="no_rue" ColumnName="no_rue" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="admin" ColumnName="admin" />
+                <ScalarProperty Name="mot_de_passe" ColumnName="mot_de_passe" />
+                <ScalarProperty Name="pseudonyme" ColumnName="pseudonyme" />
+                <ScalarProperty Name="note" ColumnName="note" />
+                <ScalarProperty Name="actif" ColumnName="actif" />
+                <ScalarProperty Name="NAS" ColumnName="NAS" />
+                <ScalarProperty Name="date_naissance" ColumnName="date_naissance" />
+                <ScalarProperty Name="nom" ColumnName="nom" />
+                <ScalarProperty Name="prenom" ColumnName="prenom" />
+                <ScalarProperty Name="numero_employe" ColumnName="numero_employe" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="feries">
+            <EntityTypeMapping TypeName="module_de_paie_context.feries">
+              <MappingFragment StoreEntitySet="feries">
+                <ScalarProperty Name="nom" ColumnName="nom" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="jours_travailles">
+            <EntityTypeMapping TypeName="module_de_paie_context.jours_travailles">
+              <MappingFragment StoreEntitySet="jours_travailles">
+                <ScalarProperty Name="compagnie_employe_id" ColumnName="compagnie_employe_id" />
+                <ScalarProperty Name="employe_id" ColumnName="employe_id" />
+                <ScalarProperty Name="paie_id" ColumnName="paie_id" />
+                <ScalarProperty Name="heures" ColumnName="heures" />
+                <ScalarProperty Name="date_travail" ColumnName="date_travail" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="paies">
+            <EntityTypeMapping TypeName="module_de_paie_context.paies">
+              <MappingFragment StoreEntitySet="paies">
+                <ScalarProperty Name="employe_id" ColumnName="employe_id" />
+                <ScalarProperty Name="compagnie_employe_id" ColumnName="compagnie_employe_id" />
+                <ScalarProperty Name="heures_regulieres" ColumnName="heures_regulieres" />
+                <ScalarProperty Name="heures_surtemps" ColumnName="heures_surtemps" />
+                <ScalarProperty Name="date_paie" ColumnName="date_paie" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="paies_feries">
+            <EntityTypeMapping TypeName="module_de_paie_context.paies_feries">
+              <MappingFragment StoreEntitySet="paies_feries">
+                <ScalarProperty Name="ferie_id" ColumnName="ferie_id" />
+                <ScalarProperty Name="paie_id" ColumnName="paie_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="paies_retenues">
+            <EntityTypeMapping TypeName="module_de_paie_context.paies_retenues">
+              <MappingFragment StoreEntitySet="paies_retenues">
+                <ScalarProperty Name="type_retenue_id" ColumnName="type_retenue_id" />
+                <ScalarProperty Name="paie_id" ColumnName="paie_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="types_retenues">
+            <EntityTypeMapping TypeName="module_de_paie_context.types_retenues">
+              <MappingFragment StoreEntitySet="types_retenues">
+                <ScalarProperty Name="pourcentage" ColumnName="pourcentage" />
+                <ScalarProperty Name="part_employeur" ColumnName="part_employeur" />
+                <ScalarProperty Name="plafond" ColumnName="plafond" />
+                <ScalarProperty Name="minimum" ColumnName="minimum" />
+                <ScalarProperty Name="en_vigueur_fin" ColumnName="en_vigueur_fin" />
+                <ScalarProperty Name="en_vigueur_debut" ColumnName="en_vigueur_debut" />
+                <ScalarProperty Name="nom_retenue" ColumnName="nom_retenue" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="types_retenues_employes">
+            <EntityTypeMapping TypeName="module_de_paie_context.types_retenues_employes">
+              <MappingFragment StoreEntitySet="types_retenues_employes">
+                <ScalarProperty Name="employe_id" ColumnName="employe_id" />
+                <ScalarProperty Name="types_retenues_id" ColumnName="types_retenues_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vacances">
+            <EntityTypeMapping TypeName="module_de_paie_context.vacances">
+              <MappingFragment StoreEntitySet="vacances">
+                <ScalarProperty Name="employe_id" ColumnName="employe_id" />
+                <ScalarProperty Name="paie_id" ColumnName="paie_id" />
+                <ScalarProperty Name="nombre_heures" ColumnName="nombre_heures" />
+                <ScalarProperty Name="date_vacance" ColumnName="date_vacance" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

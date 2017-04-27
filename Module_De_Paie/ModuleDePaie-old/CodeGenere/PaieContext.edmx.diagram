@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="cfb19a20a0f74d1ea070f9398da2a308" Name="Diagram1" >
+        <EntityTypeShape EntityType="module_de_paie_context.compagnies" Width="1.5" PointX="3.25" PointY="20.625" />
+        <EntityTypeShape EntityType="module_de_paie_context.compagnies_employes" Width="1.5" PointX="5.5" PointY="17.875" />
+        <EntityTypeShape EntityType="module_de_paie_context.employes" Width="1.5" PointX="3.25" PointY="14.5" />
+        <EntityTypeShape EntityType="module_de_paie_context.feries" Width="1.5" PointX="2.5" PointY="4.25" />
+        <EntityTypeShape EntityType="module_de_paie_context.jours_travailles" Width="1.5" PointX="8.875" PointY="8.25" />
+        <EntityTypeShape EntityType="module_de_paie_context.paies" Width="1.5" PointX="2.5" PointY="7.625" />
+        <EntityTypeShape EntityType="module_de_paie_context.paies_feries" Width="1.5" PointX="4.75" PointY="5.125" />
+        <EntityTypeShape EntityType="module_de_paie_context.paies_retenues" Width="1.5" PointX="4.75" PointY="8.125" />
+        <EntityTypeShape EntityType="module_de_paie_context.types_retenues" Width="1.5" PointX="2.5" PointY="24.625" />
+        <EntityTypeShape EntityType="module_de_paie_context.types_retenues_employes" Width="1.5" PointX="5.5" PointY="21" />
+        <EntityTypeShape EntityType="module_de_paie_context.vacances" Width="1.5" PointX="4.75" PointY="10.875" />
+        <AssociationConnector Association="module_de_paie_context.compagnie_id" />
+        <AssociationConnector Association="module_de_paie_context.compagnie_employe_id" />
+        <AssociationConnector Association="module_de_paie_context.employe_id" />
+        <AssociationConnector Association="module_de_paie_context.employe_id_1_" />
+        <AssociationConnector Association="module_de_paie_context.employe_id_2_" />
+        <AssociationConnector Association="module_de_paie_context.employe_id_3_" />
+        <AssociationConnector Association="module_de_paie_context.ferie_id" />
+        <AssociationConnector Association="module_de_paie_context.paie_id" />
+        <AssociationConnector Association="module_de_paie_context.paie_id_1_" />
+        <AssociationConnector Association="module_de_paie_context.paie_id_2_" />
+        <AssociationConnector Association="module_de_paie_context.paie_id_3_" />
+        <AssociationConnector Association="module_de_paie_context.type_retenue_id" />
+        <AssociationConnector Association="module_de_paie_context.type_retenue_id_1_" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
